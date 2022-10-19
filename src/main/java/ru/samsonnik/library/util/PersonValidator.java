@@ -25,8 +25,7 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
-        if (personDao.index().stream().anyMatch(value -> value.getFirstName().equals(person.getFirstName()) &&
-                value.getLastName().equals(person.getLastName()))) {
+        if (personDao.index().stream().filter(value -> value.getLastName().equals(person.getLastName())).count() >= 2) {
             errors.rejectValue("firstName", "", "This person already exists");
         }
     }
