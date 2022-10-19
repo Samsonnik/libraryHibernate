@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<h2>
+    <a th:href="@{/library/people/create}">Create new person</a>
+</h2>
+<h2>
+    <a th:href="@{/library/home_page}">Go to home page</a>
+</h2>
+<p>People list</p>
+<table>
+    <tr>
+        <td>Person id</td>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>Years old</td>
+        <td>Action</td>
+    </tr>
+    <div th:each="person : ${people}">
+        <tr>
+            <td>
+                <a th:href="@{/library/people/{id} (id = ${person.getId()})}" th:text="${person.getId()}"/>
+            </td>
+            <td th:text="${person.firstName}"></td>
+            <td th:text="${person.getLastName()}"></td>
+            <td th:text="${person.getYearsOld()}"></td>
+            <td>
+                <a th:href="@{/library/people/delete/{id}(id = ${person.getId()})}">Delete</a>
+            </td>
+        </tr>
+    </div>
+</table>
+</body>
+</html>

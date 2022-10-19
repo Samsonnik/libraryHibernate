@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/library/people}">Go back</a>
+<form method="post" th:action="@{/library/people/update/{id}(id = ${person.getId()})}" th:object="${person}">
+    <p>
+        <label for="first_name">First name</label>
+        <input type="text" th:field="*{firstName}" id="first_name">
+    <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">first name error</div>
+    </p>
+    <p>
+        <label for="last_name">Last name</label>
+        <input type="text" th:field="*{lastName}" id="last_name">
+    <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">last name error</div>
+    </p>
+    <p>
+        <label for="years_old">Years old</label>
+        <input type="text" th:field="*{yearsOld}" id="years_old">
+    <div style="color: red" th:if="${#fields.hasErrors('yearsOld')}" th:errors="*{yearsOld}">years error</div>
+    </p>
+    <p>
+        <input type="submit" value="Update">
+    </p>
+    <div th:if="${books.isEmpty()}">This man hasn't books</div>
+    <p>
+        <div th:each="book : ${books}">
+    <div th:text="${book.bookName} +' ' + ${book.bookAuthor}"></div>
+        </div>
+    </p>
+</form>
+</body>
+</html>
