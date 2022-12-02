@@ -35,7 +35,6 @@ public class Book {
     @Column(name = "was_taken")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "cannot be a null")
     private Date wasTakenDate;
 
     @ManyToOne(fetch = FetchType.EAGER)

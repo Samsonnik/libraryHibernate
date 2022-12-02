@@ -97,7 +97,10 @@ public class BookController {
     }
 
     @PostMapping("/books/new")
-    public String create(@ModelAttribute("book") Book book) {
+    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/library/books/create";
+        }
         bookService.save(book);
         return "redirect:/library/books";
     }
