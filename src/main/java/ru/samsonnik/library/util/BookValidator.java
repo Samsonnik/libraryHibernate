@@ -24,10 +24,10 @@ public class BookValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Book book = (Book) target;
-        if (bookDao.index().stream().filter(value -> value.getBookName().equals(book.getBookName()) &&
-                value.getBookAuthor().equals(book.getBookAuthor())).count() >= 2) {
-            errors.rejectValue("bookName", "", "This book already exists");
-        }
+//        Book book = (Book) target;
+//        if (bookDao.index().stream().filter(value -> value.getBookName().equals(book.getBookName()) &&
+//                value.getBookAuthor().equals(book.getBookAuthor())).count() >= 2) {
+//            errors.rejectValue("bookName", "", "This book already exists");
+//        }
     }
 }

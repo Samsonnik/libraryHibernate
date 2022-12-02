@@ -1,0 +1,14 @@
+ru\samsonnik\library\model\Person.class
+ru\samsonnik\library\util\BookValidator.class
+ru\samsonnik\library\dao\BookDao.class
+ru\samsonnik\library\dao\PersonDao.class
+ru\samsonnik\library\services\PersonService.class
+ru\samsonnik\library\repositories\PersonRepository.class
+ru\samsonnik\library\util\PersonValidator.class
+ru\samsonnik\library\repositories\BookRepository.class
+ru\samsonnik\library\config\SpringConfig.class
+ru\samsonnik\library\config\MySpringMvcDispatcherServletInitialier.class
+ru\samsonnik\library\model\Book.class
+ru\samsonnik\library\controllers\BookController.class
+ru\samsonnik\library\controllers\PersonController.class
+ru\samsonnik\library\services\BookService.class

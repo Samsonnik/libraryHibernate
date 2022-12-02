@@ -27,9 +27,12 @@
     </p>
     <div th:if="${books.isEmpty()}">This man hasn't books</div>
     <p>
-        <div th:each="book : ${books}">
-    <div th:text="${book.bookName} +' ' + ${book.bookAuthor}"></div>
-        </div>
+    <div th:each="book : ${books}">
+        <div style="color: red" th:if="${book.getValue().toString().equalsIgnoreCase('true')}"
+             th:text="${book.getKey().getBookName()}"></div>
+        <div style="color: green" th:if="${book.getValue().toString().equalsIgnoreCase('false')}"
+             th:text="${book.getKey().getBookName()}"></div>
+    </div>
     </p>
 </form>
 </body>

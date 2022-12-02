@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.samsonnik.library.dao.PersonDao;
-import ru.samsonnik.library.model.Book;
 import ru.samsonnik.library.model.Person;
+import ru.samsonnik.library.services.PersonService;
 import ru.samsonnik.library.util.PersonValidator;
 
 import javax.validation.Valid;
@@ -16,26 +16,24 @@ import javax.validation.Valid;
 @RequestMapping("/library")
 public class PersonController {
 
-    private final PersonDao personDao;
-    private final PersonValidator validator;
+    private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonDao personDao, PersonValidator validator) {
-        this.validator = validator;
-        this.personDao = personDao;
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping("/people")
     public String index(Model model) {
-        model.addAttribute("people", personDao.index());
+        model.addAttribute("people", personService.findAll());
         return "person/index";
     }
 
     @GetMapping("/people/{id}")
     public String peoplePage(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDao.getPerson(id));
-        model.addAttribute("books", personDao.getBooks(id));
-        return "person/getPerson";
+        model.addAttribute("person", personService.findById(id));
+        model.addAttribute("books", personService.getBookList(id));
+             return "person/getPerson";
     }
 
     @GetMapping("/people/create")
@@ -44,29 +42,23 @@ public class PersonController {
     }
 
     @PostMapping("/people/new")
-    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-        validator.validate(person, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "person/new";
-        }
-        personDao.save(person);
+    public String create(@ModelAttribute("person") Person person) {
+        personService.save(person);
         return "redirect:/library/people";
     }
 
     @GetMapping("/people/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        personDao.delete(id);
+        personService.delete(id);
         return "redirect:/library/people";
     }
 
     @PostMapping("/people/update/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult) {
-        validator.validate(person, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "person/getPerson";
+    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/person/getPerson";
         }
-        personDao.update(id,person);
+        personService.updateById(id, person);
         return "redirect:/library/people";
     }
 }

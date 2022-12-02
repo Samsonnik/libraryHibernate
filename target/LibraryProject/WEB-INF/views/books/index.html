@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
-    <link th:href="@{/templates/style.css}" rel="stylesheet"/>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
 </head>
 <body>
 <h2>
@@ -12,6 +12,14 @@
 <h2>
     <a th:href="@{/library/home_page}">Go to home page</a>
 </h2>
+<h2>
+    <a th:href="@{/library/books/search_page}">Go to search page</a>
+</h2>
+<form th:action="@{/library/books}">
+    <label for="valueForFinding">Find book</label>
+    <input id="valueForFinding" name="valueForFinding"/>
+    <input type="submit" value="Find book">
+</form>
 <table class="table">
     <tr>
         <td>Book id</td>
@@ -19,6 +27,7 @@
         <td>Book author</td>
         <td>Year</td>
         <td>Action</td>
+        <td><a th:href="@{/library/books?sort=true}">Sort</a></td>
     </tr>
     <div th:each="book : ${books}">
         <tr>
